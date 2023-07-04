@@ -12,7 +12,7 @@ filter = "&sp=EgIIAg%253D%253D"
 # 스크롤을 어디까지 내릴지
 finish_line = 5000
 
-def linkGetter(search_list = search_list, filter = filter, finish_line = finish_line, label = today) :
+def linkGetter(search_list = search_list, filter = filter, finish_line = finish_line, label = today, flag = True) :
     # 에러 해결용 코드
     # USB: usb_service_win.cc:415 Could not read device interface GUIDs: 지정된 파일을 찾을 수 없습니다. (0x2)
     options = webdriver.ChromeOptions()
@@ -20,9 +20,6 @@ def linkGetter(search_list = search_list, filter = filter, finish_line = finish_
 
     # 접속할 URL
     url = "https://www.youtube.com"
-
-    # 스크롤을 어디까지 내릴지
-    finish_line = 5000
 
     # 이름, 게시자, 링크의 저장공간 만들기
     videoList = []
@@ -88,9 +85,10 @@ def linkGetter(search_list = search_list, filter = filter, finish_line = finish_
             else :
                 video_link = "https://www.youtube.com" + video_link
 
-            # # 이름에 키워드가 없으면 넣지 않기
-            # if(re.search(search_word, video_name) == None) :
-            #     continue
+            # 이름에 키워드가 없으면 넣지 않기
+            # 키워드가 좀 복잡한 경우 없을 확률이 높음. 이건 flag값을 false로 줘서 조정
+            if(flag and re.search(search_word, video_name) == None) :
+                continue
 
             # 채널명에 공백 제거
             channel_name = removeSpaces(channel_name)
