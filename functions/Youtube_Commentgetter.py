@@ -88,6 +88,7 @@ def getYoutubeComments(browser, link) :
 
     return commentList
 
+# 메인 부분, link 폴더 특정 라벨에 대한 모든 영상의 댓글을 datas 폴더에 저장한다.
 def commentGetter(label = today) :
     # 에러 해결용 코드
     # USB: usb_service_win.cc:415 Could not read device interface GUIDs: 지정된 파일을 찾을 수 없습니다. (0x2)

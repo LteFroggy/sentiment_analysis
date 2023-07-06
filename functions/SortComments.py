@@ -6,7 +6,7 @@ from header import *
 # 판결에 관련된 내용들이 많이 포함될 수 있도록 키워드 사용
 filters = ["판사", "징역", "판결", "검사", "형량", "재판장", "감형", ]
 
-# 라벨 내의 댓글들을 필터링해줌
+# 라벨 내의 댓글들을 필터링하여 datas 폴더 내에 _filtered로 저장
 def sortComments(label = today) :
     labelPath = os.path.join(dataPath, label)
     fileList = os.listdir(labelPath)
