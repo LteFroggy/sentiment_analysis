@@ -19,14 +19,18 @@ def sortComments(label = today) :
         if (not os.path.isdir(savePath)) :
             os.mkdir(savePath)
         
-        comments = pd.read_csv(os.path.join(labelPath, fileName)).to_numpy()
+        comments = pd.read_csv(os.path.join(labelPath, fileName), encoding = 'utf-8').to_numpy()
         # print("댓글 수 : " + str(len(comments)))
         comments_save = []
 
         # 각 댓글 내에 필터에 있는 단어가 잘 들어있는지 검사
         for each in comments :
-            # print("댓글 내용 :", each[1])
             try :
+                print("댓글 내용 :", each[1])
+                # 너무 짧은 댓글도 적절하게 판단이 불가능한 듯. 최소 10자 이상 적었을 경우에만 저장하자
+                if (len(each[1]) < 15) :
+                    print("15이하")
+                    continue
                 for word in filters :
                     if word in each[1] :
                         # print(word, "포함되어있음")
@@ -34,7 +38,8 @@ def sortComments(label = today) :
                         break
                     else :
                         continue
-            except :
+            except Exception as E:
+                print("Error :", E)
                 continue
         # 그래도 댓글이 10개는 되어야 저장. 너무 적으면 적절한 의견을 제시했다고 보기 어려우므로.
         if len(comments_save) >= 10 :

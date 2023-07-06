@@ -3,27 +3,30 @@ import re
 import sys
 import time
 import requests
+import matplotlib
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from datetime import datetime
-from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
-from selenium.webdriver.common.keys import Keys
+from matplotlib import pyplot as plt
+# from selenium import webdriver
+# from selenium.common.exceptions import WebDriverException
+# from selenium.webdriver.common.keys import Keys
 
 today = datetime.today().strftime("%Y-%m-%d")
 rootPath = os.getcwd()
 currentPath = os.path.dirname(__file__)
 linkPath = os.path.join(rootPath, "link")
 dataPath = os.path.join(rootPath, "datas")
+resultPath = os.path.join(rootPath, "result")
 
 
 def removeSpaces(state) :
-    # ¾ÕµÚ °ø¹é Á¦°Å
+    # ï¿½Õµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     state = re.sub("^\s+", "", state)
     state = re.sub("\s+$", "", state)
 
-    # Áß°£ ¿©·¯°³ÀÇ °ø¹éÀÌ³ª È¤Àº ÁÙ¹Ù²Þ µî ¸ðµÎ °ø¹é ÇÑÄ­À¸·Î ´ëÃ¼
+    # ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ È¤ï¿½ï¿½ ï¿½Ù¹Ù²ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
     state = re.sub("\s+", " ", state)
 
     return state

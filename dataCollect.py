@@ -4,6 +4,7 @@ from datetime import datetime
 from functions import Youtube_Linkgetter
 from functions import Youtube_Commentgetter
 from functions import SortComments
+from functions import GetLabel
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), "functions"))
 
@@ -31,3 +32,5 @@ if __name__ == "__main__" :
     # Youtube_Commentgetter.commentGetter(label = label)
 
     SortComments.sortComments(label = label)
+
+    GetLabel.getLabel(label)
