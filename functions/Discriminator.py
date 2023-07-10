@@ -5,7 +5,7 @@ from math import log
 sys.path.append(os.path.dirname(__file__))
 from header import *
 
-label = "가평계곡"
+label = "마라샹궈 쿡방"
 
 # result내에 저장되어있는 댓글들의 긍정, 부정 정도를 먼저 판단
 filePath = os.path.join(resultPath, label + ".csv")
@@ -18,6 +18,11 @@ print(f"Positive's Shape : {positive_list.shape}")
 print(f"Negative's Shape : {negative_list.shape}")
 
 print(positive_list[0])
+
+# AI의 판단에 더불어 특정 키워드가 존재할 경우 그 문장들은 긍정, 부정을 Rule Based로 판단
+positive_words = ["감사"]
+negative_words = ["인공지능", "AI", "가족", "감형", "딸", "아들", "자녀", "자식", "선처"]
+
 
 # 추천수를 로그 스케일로 고려하여 갯수에 반영
 # positive_count = [round(log(2 + int(comment[2], 2)), 1) for comment in positive_list]
@@ -40,7 +45,7 @@ for comment in negative_list :
         negative_count += round(log(2 + int(comment[2]), 2))
         # print(f"추천수 {comment[2]}개, 로그스케일 적용 시 {round(log(2 + int(comment[2]), 2))}개")
     except ValueError :
-        # 추천수가 1,000 개가 넘으면 "1천"등으로 표기되어서 오류가 남. 이 경우에는 그냥 더해주기
+        # 추천수가 1,000 개가 넘으면 "1천"등으로 표기되어서 오류가 남. 이 경우에는 그냥 10개로 가정하고 더해주기
         negative_count += 10
 
 print(positive_count)

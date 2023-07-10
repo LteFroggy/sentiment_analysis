@@ -25,9 +25,12 @@ def tokenizer_kor(text) :
 # 먼저 필터링된 댓글 다 한군데에 모으기
 label = "가평계곡"
 
-def getLabel(label = label) :
+def getLabel(label = label, flag = True) :
     # 경로부터 지정
-    targetPath = os.path.join(dataPath, label+"_filtered")
+    if flag :
+        targetPath = os.path.join(dataPath, label+"_filtered")
+    else :
+        targetPath = os.path.join(dataPath, label)
 
     # 내부에 있는 모든 파일 리스팅
     fileList = os.listdir(targetPath)
@@ -70,9 +73,11 @@ def getLabel(label = label) :
 
     print("예측 완료")
 
+    # 
     content = content.reshape(-1, 1)
     y_pred = y_pred.reshape(-1, 1)
     result = np.concatenate((content, y_pred), axis = 1)
+    print(comments)
     result = np.concatenate((result, comments[:, [1]]), axis = 1)
 
     ### 결과를 저장하기

@@ -40,7 +40,7 @@ def linkGetter(search_list = search_list, filter = filter, finish_line = finish_
         search.send_keys(Keys.ENTER)
         time.sleep(2)
 
-        # 1일 이내 게시물만 보이도록 링크 수정
+        # 필터의 게시물만 보이도록 링크 수정
         browser.get(browser.current_url + filter)
         time.sleep(2)
 

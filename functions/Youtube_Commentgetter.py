@@ -131,5 +131,31 @@ def commentGetter(label = today) :
         # datas폴더에 label별로 넣어서 저장
         df_comments.to_csv(os.path.join(dataSavingPath, name_new + ".csv"), mode = 'w', index = False)
 
-if __name__ == "__main__" :
-    commentGetter("돌려차기")
+def commentGetter_single(link, label) :
+    # 에러 해결용 코드
+    # USB: usb_service_win.cc:415 Could not read device interface GUIDs: 지정된 파일을 찾을 수 없습니다. (0x2)
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
+    # 파일 저장할 폴더 만들기
+    dataSavingPath = os.path.join(dataPath, label)
+    if not os.path.isdir(dataSavingPath) :
+        os.mkdir(dataSavingPath)        
+
+    # 크롬드라이버 실행
+    driver_path = "./chromedriver.exe"
+    browser = webdriver.Chrome(executable_path = driver_path, options = options)
+    browser.maximize_window()
+    link = link
+    # 함수를 통해 링크별 댓글 따오기 
+    comments = getYoutubeComments(browser, link)
+    
+    # 댓글이 없는 게시물일 경우 넘기기
+    if comments == None :
+        exit()
+    
+    # 데이터프레임으로 변환
+    df_comments = pd.DataFrame(comments, columns = ["작성자", "내용", "추천수"])
+
+    # datas폴더에 label별로 넣어서 저장
+    df_comments.to_csv(os.path.join(dataSavingPath, label + ".csv"), mode = 'w', index = False)
